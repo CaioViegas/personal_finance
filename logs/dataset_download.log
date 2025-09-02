@@ -1,0 +1,3 @@
+2025-09-02 14:31:27,074 - INFO - Downloading dataset 'miadul/personal-finance-ml-dataset'...
+2025-09-02 14:31:29,329 - INFO - File saved: C:\Users\caioc\Desktop\ProjectData\personal_finance\data\raw\synthetic_personal_finance_dataset.csv
+2025-09-02 14:31:30,507 - INFO - Cleaned up temp dir: C:\Users\caioc\.cache\kagglehub\datasets\miadul\personal-finance-ml-dataset\versions\1

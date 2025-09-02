@@ -1,0 +1,79 @@
+
+========================================
+EDA FOR DATASET: DATASET
+========================================
+
+[1] SHAPE:
+ Metric  Count
+   Rows  32424
+Columns     20
+
+[2] DATA TYPES:
+   Type  Count
+ object      9
+float64      8
+  int64      3
+
+[3] MISSING VALUES:
+   Column  Missing Values
+loan_type           19429
+
+[4] NUMERIC STATISTICS:
+                           count      mean       std    min      25%       50%       75%        max
+age                     32424.00     43.42     14.98  18.00    30.00     43.00     56.00      69.00
+monthly_income_usd      32424.00   4027.86   1916.77 500.00  2657.80   3997.74   5351.61   12404.05
+monthly_expenses_usd    32424.00   2419.44   1388.89 150.01  1397.50   2219.57   3254.04   10082.71
+savings_usd             32424.00 243752.04 191577.19 635.96 86291.55 201700.33 358966.22 1237774.39
+loan_amount_usd         32424.00 100114.74 152536.59   0.00     0.00      0.00 189499.07  499954.75
+loan_term_months        32424.00     58.50    104.87   0.00     0.00      0.00     60.00     360.00
+monthly_emi_usd         32424.00   3092.99   6478.94   0.00     0.00      0.00   3574.57   47723.84
+loan_interest_rate_pct  32424.00      6.62      9.47   0.00     0.00      0.00     13.14      30.00
+debt_to_income_ratio    32424.00      1.19      3.76   0.00     0.00      0.00      0.92      90.67
+credit_score            32424.00    575.26    159.02 300.00   437.00    575.00    714.00     850.00
+savings_to_income_ratio 32424.00      5.05      2.85   0.10     2.58      5.04      7.51      10.00
+
+[5] CATEGORICAL STATISTICS:
+           Column  Unique Values   Most Common  Freq of Most Common  Cardinality Ratio
+          user_id          32424        U00001                    1           1.000000
+           gender              3          Male                15595           0.000093
+  education_level              5      Bachelor                13038           0.000154
+employment_status              4      Employed                19410           0.000123
+        job_title              9        Driver                 3698           0.000278
+         has_loan              2            No                19429           0.000062
+        loan_type              4          Home                 3284           0.000123
+           region              5 North America                 6581           0.000154
+      record_date           1461    2023-12-24                   40           0.045059
+
+[!] Warning: High-cardinality categorical columns: user_id
+
+[6] TOP 3 CATEGORIES PER COLUMN (proportions):
+                   U00001  U00002  U00003  Male  Female  Other  Bachelor  Master  High School  Employed  Self-employed  Unemployed  Driver  Teacher  Manager   No  Yes  Home  Education  Business  North America  Asia  Europe  2023-12-24  2023-01-20  2023-06-06
+user_id              0.00    0.00    0.00  0.00    0.00   0.00      0.00    0.00         0.00      0.00           0.00        0.00    0.00     0.00     0.00 0.00 0.00  0.00       0.00      0.00           0.00  0.00    0.00        0.00        0.00        0.00
+gender               0.00    0.00    0.00  0.48    0.48   0.04      0.00    0.00         0.00      0.00           0.00        0.00    0.00     0.00     0.00 0.00 0.00  0.00       0.00      0.00           0.00  0.00    0.00        0.00        0.00        0.00
+education_level      0.00    0.00    0.00  0.00    0.00   0.00      0.40    0.30         0.20      0.00           0.00        0.00    0.00     0.00     0.00 0.00 0.00  0.00       0.00      0.00           0.00  0.00    0.00        0.00        0.00        0.00
+employment_status    0.00    0.00    0.00  0.00    0.00   0.00      0.00    0.00         0.00      0.60           0.20        0.10    0.00     0.00     0.00 0.00 0.00  0.00       0.00      0.00           0.00  0.00    0.00        0.00        0.00        0.00
+job_title            0.00    0.00    0.00  0.00    0.00   0.00      0.00    0.00         0.00      0.00           0.00        0.00    0.11     0.11     0.11 0.00 0.00  0.00       0.00      0.00           0.00  0.00    0.00        0.00        0.00        0.00
+has_loan             0.00    0.00    0.00  0.00    0.00   0.00      0.00    0.00         0.00      0.00           0.00        0.00    0.00     0.00     0.00 0.60 0.40  0.00       0.00      0.00           0.00  0.00    0.00        0.00        0.00        0.00
+loan_type            0.00    0.00    0.00  0.00    0.00   0.00      0.00    0.00         0.00      0.00           0.00        0.00    0.00     0.00     0.00 0.00 0.00  0.25       0.25      0.25           0.00  0.00    0.00        0.00        0.00        0.00
+region               0.00    0.00    0.00  0.00    0.00   0.00      0.00    0.00         0.00      0.00           0.00        0.00    0.00     0.00     0.00 0.00 0.00  0.00       0.00      0.00           0.20  0.20    0.20        0.00        0.00        0.00
+record_date          0.00    0.00    0.00  0.00    0.00   0.00      0.00    0.00         0.00      0.00           0.00        0.00    0.00     0.00     0.00 0.00 0.00  0.00       0.00      0.00           0.00  0.00    0.00        0.00        0.00        0.00
+
+[6] OUTLIER ANALYSIS:
+                 column  outliers  percentage  min_value  max_value    classification                     action
+                    age         0        0.00      18.00      69.00       No outliers           No action needed
+     monthly_income_usd       105        0.32     500.00   12404.05 Rare but possible            Keep or segment
+   monthly_expenses_usd       476        1.47     150.01   10082.71 Rare but possible            Keep or segment
+            savings_usd       448        1.38     635.96 1237774.39 Rare but possible            Keep or segment
+        loan_amount_usd       644        1.99       0.00  499954.75 Rare but possible            Keep or segment
+       loan_term_months      5687       17.54       0.00     360.00    May harm model Transform/use robust model
+        monthly_emi_usd      3634       11.21       0.00   47723.84    May harm model Transform/use robust model
+ loan_interest_rate_pct         0        0.00       0.00      30.00       No outliers           No action needed
+   debt_to_income_ratio      4289       13.23       0.00      90.67    May harm model Transform/use robust model
+           credit_score         0        0.00     300.00     850.00       No outliers           No action needed
+savings_to_income_ratio         0        0.00       0.10      10.00       No outliers           No action needed
+
+[8] STRONG CORRELATIONS (>= 0.8):
+              Var1                 Var2  Correlation
+monthly_income_usd monthly_expenses_usd     0.829171
+
+========================================

@@ -1,0 +1,9 @@
+2025-09-02 14:31:30,083 - INFO - Saved to CSV (compressed): C:\Users\caioc\Desktop\ProjectData\personal_finance\data\raw\synthetic_personal_finance_dataset.csv.gz
+2025-09-02 14:31:30,364 - INFO - Saved to Parquet: C:\Users\caioc\Desktop\ProjectData\personal_finance\data\raw\synthetic_personal_finance_dataset.parquet
+2025-09-02 14:31:30,506 - INFO - Saved to SQLite (table=data_table): C:\Users\caioc\Desktop\ProjectData\personal_finance\data\raw\synthetic_personal_finance_dataset.db
+2025-09-02 14:31:31,300 - INFO - Saved to CSV (uncompressed): C:\Users\caioc\Desktop\ProjectData\personal_finance\data\transformed\transformed_finance_data.csv
+2025-09-02 14:31:31,379 - INFO - Saved to Parquet: C:\Users\caioc\Desktop\ProjectData\personal_finance\data\transformed\transformed_finance_data.parquet
+2025-09-02 14:31:31,631 - INFO - Saved to SQLite (table=data_table): C:\Users\caioc\Desktop\ProjectData\personal_finance\data\transformed\transformed_finance_data.db
+2025-09-02 14:31:32,169 - INFO - Saved to CSV (uncompressed): C:\Users\caioc\Desktop\ProjectData\personal_finance\data\processed\processed_finance_data.csv
+2025-09-02 14:31:32,229 - INFO - Saved to Parquet: C:\Users\caioc\Desktop\ProjectData\personal_finance\data\processed\processed_finance_data.parquet
+2025-09-02 14:31:32,451 - INFO - Saved to SQLite (table=data_table): C:\Users\caioc\Desktop\ProjectData\personal_finance\data\processed\processed_finance_data.db
