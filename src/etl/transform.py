@@ -1,11 +1,13 @@
 import sys
 import logging
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 import numpy as np
 import pandas as pd
 from sklearn.impute import KNNImputer
+from sklearn.preprocessing import OrdinalEncoder, OneHotEncoder
+from category_encoders import TargetEncoder
 
 sys.path.append(str(Path(__file__).resolve().parent.parent.parent))
 from src.etl.load import save_data  
@@ -32,14 +34,7 @@ if not logger.hasHandlers():
     logger.addHandler(_file)
 
 class FinanceTransformer:
-    def __init__(
-        self,
-        data: pd.DataFrame,
-        *,
-        knn_neighbors: int = 5,
-        top_k_titles: int = 15,
-        iqr_k: float = 1.5,
-    ) -> None:
+    def __init__(self, data: pd.DataFrame, *, knn_neighbors: int = 5, top_k_titles: int = 15, iqr_k: float = 1.5,) -> None:
         self.data = data.copy()
         self.knn_neighbors = knn_neighbors
         self.top_k_titles = top_k_titles
@@ -283,7 +278,7 @@ class FinanceTransformer:
             self.data["financial_stress_score"] = np.vstack(parts).mean(axis=0)
         return self
 
-    def encode_for_model(self) -> pd.DataFrame:
+    def encode_for_model(self, target: Optional[pd.Series] = None) -> pd.DataFrame:
         df = self.data.copy()
         drop_cols = [c for c in ["user_id", "record_date"] if c in df.columns]
         df = df.drop(columns=drop_cols, errors="ignore")
@@ -291,20 +286,26 @@ class FinanceTransformer:
         if "has_loan" in df.columns:
             df["has_loan"] = df["has_loan"].map({"Yes": 1, "No": 0}).astype("Int64")
 
-        cat_cols = df.select_dtypes(include=["object", "category"]).columns.tolist()
-        if cat_cols:
-            df = pd.get_dummies(df, columns=cat_cols, drop_first=True)
+        ordinal_maps = {
+            "education_level": ["High School", "Bachelor", "Master", "Phd"],
+            "credit_bucket": ["Poor", "Fair", "Good", "Very Good", "Excellent"],
+        }
+        for col, order in ordinal_maps.items():
+            if col in df.columns:
+                ord_enc = OrdinalEncoder(categories=[order], handle_unknown='use_encoded_value', unknown_value=-1)
+                df[col] = ord_enc.fit_transform(df[[col]])
 
-        bool_cols = df.select_dtypes(include=["bool"]).columns.tolist()
-        if bool_cols:
-            for c in bool_cols:
-                df[c] = df[c].astype("int8")
+        low_card = [c for c in ["gender", "employment_status", "region"] if c in df.columns]
+        if low_card:
+            ohe = OneHotEncoder(drop="first", sparse_output=False, handle_unknown="ignore")
+            ohe_arr = ohe.fit_transform(df[low_card])
+            ohe_df = pd.DataFrame(ohe_arr, columns=ohe.get_feature_names_out(low_card), index=df.index)
+            df = pd.concat([df.drop(columns=low_card), ohe_df], axis=1)
 
-        remaining_object = df.select_dtypes(include=["object"]).columns.tolist()
-        if remaining_object:
-            logger.warning("Colunas object remanescentes detectadas: %s — convertendo para códigos", remaining_object)
-            for c in remaining_object:
-                df[c] = df[c].astype("category").cat.codes
+        high_card = [c for c in ["job_title", "loan_type"] if c in df.columns]
+        if high_card and target is not None:
+            te = TargetEncoder(cols=high_card)
+            df[high_card] = te.fit_transform(df[high_card], target)
 
         return df
 
