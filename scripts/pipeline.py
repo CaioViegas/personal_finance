@@ -5,7 +5,7 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 
 from src.etl.extract import download_dataset
-from src.etl.transform import FinanceTransformer
+from src.etl.transform import DataTransformer
 from configs.paths import get_project_paths
 
 if __name__ == "__main__":
@@ -18,5 +18,5 @@ if __name__ == "__main__":
     raw_dir = paths['RAW']
     df = pd.read_csv(raw_dir / "synthetic_personal_finance_dataset.csv")
 
-    transformer = FinanceTransformer(df)
+    transformer = DataTransformer(df)
     transformer.transform()
